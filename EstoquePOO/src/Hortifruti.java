@@ -3,8 +3,8 @@ import java.time.LocalDate;
 public class Hortifruti extends Produto {
     private boolean organico;
 
-    public Hortifruti(String nome, float preco, LocalDate validade, boolean organico) {
-        super(nome, preco, validade);
+    public Hortifruti(String nome, float preco, int quantidade, LocalDate validade, boolean organico) {
+        super(nome, preco, quantidade, validade);
         this.organico = organico;
     }
 

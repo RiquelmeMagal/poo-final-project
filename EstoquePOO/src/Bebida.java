@@ -1,11 +1,10 @@
-import java.sql.Date;
 import java.time.LocalDate;
 
-public class Bebidas extends Produto {
+public class Bebida extends Produto {
     private boolean gelada;
     
-    public Bebidas(String nome, float preco, LocalDate validade, boolean gelada) {
-        super(nome, preco, validade);
+    public Bebida(String nome, float preco, int quantidade, LocalDate validade, boolean gelada) {
+        super(nome, preco, quantidade, validade);
         this.gelada = gelada;
     }
 
