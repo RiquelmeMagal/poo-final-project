@@ -36,23 +36,29 @@ public class App {
                     float cadastrarPreco = scan.nextFloat();
                     System.out.print("QUANTIDADE: ");
                     int cadastrarQuantidade = scan.nextInt();
+                    scan.nextLine();
                     System.out.print("GELADA (s/n): ");
                     String gelada = scan.nextLine();
                     if (gelada.toUpperCase().equals("S")) {
                         Bebida bebida = new Bebida(cadastrarNome, cadastrarPreco, cadastrarQuantidade, LocalDate.now(), true);
+                        estoque.cadastrarProduto(bebida);
                     } else if (gelada.toUpperCase().equals("N")) {
                         Bebida bebida = new Bebida(cadastrarNome, cadastrarPreco, cadastrarQuantidade, LocalDate.now(), false);
+                        estoque.cadastrarProduto(bebida);
                     } else {
                         System.out.println("ERRO!");
                     }
                     break;
-                case "4":
+                case "4": 
                     List<Map<String, String>> dados = estoque.verificar();
                     System.out.println("\n============");
                     for (Map<String, String> produto : dados) {
                         System.out.println("NOME: " + produto.get("nome") + "\nQTD: " + produto.get("quantidade"));
                     }
                     System.out.println("\n============");
+                    break;
+                case "0":
+                    System.out.println("\nFINALIZANDO APLICAÇÃO!.\n");
                     break;
                 default:
                     System.out.println("\nOPÇÃO INVÁLIDA! POR FAVOR, TENTE NOVAMENTE.\n");
