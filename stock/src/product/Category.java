@@ -1,3 +1,4 @@
+package product;
 import utils.RandomID;
 
 public class Category {
