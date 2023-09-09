@@ -2,29 +2,22 @@ package product;
 import utils.RandomID;
 
 public class Category {
-    private String id;
+    private String code;
     private String prefix;
     private String title;
     private String description;
 
     public Category(String title, String prefix, String description) {
-        this.id = RandomID.randomWithoutLetters(6);
+        this.code = prefix + RandomID.randomWithoutLetters(4);
         this.title = title;
         this.prefix = prefix;
         this.description = description;
     
     }
 
-    public Category(String title, String prefix) {
-        this.id = RandomID.randomWithoutLetters(6);
-        this.title = title;
-        this.prefix = prefix;
-        this.description = "";
-    }
 
-
-    public String getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
     public String getTitle() {
@@ -53,6 +46,6 @@ public class Category {
 
     @Override
     public String toString() {
-        return this.description.length() > 0 ? String.format("%s-[%s]%s:%s", this.id, this.prefix, this.title, this.description) : String.format("%s-[%s]%s", this.id, this.prefix, this.title);
+        return this.description.length() > 0 ? String.format("[%s]%s:%s", this.code, this.title, this.description) : String.format("[%s]%s",this.code, this.title);
     }
 }

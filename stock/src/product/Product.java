@@ -27,6 +27,9 @@ public abstract class Product {
     public String getCode() {
         return code;
     }
+    protected void setCode(String code) {
+        this.code = code;
+    }
     public int getAmount() {
         return amount;
     }

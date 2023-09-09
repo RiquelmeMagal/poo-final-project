@@ -1,21 +1,30 @@
 
-import product.Category;
-import product.NoPerishable;
-import product.Perishable;
-import product.Product;
-
 public class App {
+
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-        Category bolachasAndBiscoitos = new Category("Bolachas e Biscoitos", "BSC");
-        Category limpeza = new Category("Limpeza", "LPZ");
+        Stock stock = new Stock();
+        String bebidasCode = stock.createCategory("Bebidas", "BBD");
+        String lanchesCode = stock.createCategory("Lanches", "LCH");
 
-    
-        Product bolacha = new Perishable("Bolacha maria", 100, bolachasAndBiscoitos, "31/12/2023");
-        Product detergente = new NoPerishable("Detergente", 200, limpeza);
+        stock.categoriesResume();
+        String cocaCode = stock.registerProduct("Coca-cola", 200, bebidasCode, "22/11/2023");
+        stock.registerProduct("Fanta", 200, bebidasCode, "27/11/2023");
+        stock.registerProduct("Doritos", 100, lanchesCode, "10/10/2023");
 
-        System.out.println(bolacha.getDetails());
-        System.out.println(detergente.getDetails());
+        stock.stockResume();
+
+        stock.replaceProduct(cocaCode, 50, "10/01/2024");
+
+        stock.stockResume();
+
+        stock.sellProduct(cocaCode, 199);
+
+        stock.stockResume();
+
+        stock.sellProduct(cocaCode, 1);
+
+        stock.stockResume();
+
 
     }
 }

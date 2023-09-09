@@ -1,23 +1,24 @@
 package product;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-
+import utils.DateFormatter;
 
 
 public class Perishable extends Product {
     protected Date validUntil;
-    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/mm/yyyy", new Locale("pt","BR"));
 
-    public Perishable(String name, int amount, Category category, String validUntil) throws ParseException {
+    public Perishable(String name, int amount, Category category, Date validUntil) {
         super(name, amount, category);
-        this.validUntil = dateFormatter.parse(validUntil);
+        this.validUntil = validUntil;
+    }
+    public Perishable(String name, int amount, Category category, Date validUntil, String code) {
+        super(name, amount, category);
+        this.validUntil = validUntil;
+        this.setCode(code);
     }
 
     @Override
     public String getDetails() {
-        return String.format("%s | %d unidades | Válido até %s", this.toString(), this.amount, dateFormatter.format(validUntil));
+        return String.format("%s | %d unidades | Válido até %s", this.toString(), this.amount, DateFormatter.formatter.format(validUntil));
     }
 
 }
