@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import product.Category;
 import product.NoPerishable;
 import product.Perishable;
@@ -15,14 +14,14 @@ public class Stock {
 
 
     public Stock() {
-        this.id = "ESTQ" + RandomID.randomWithoutLetters(4);
+        this.id = "STOCK" + RandomID.randomWithoutLetters(4);
         this.description = "";
         this.products = new ArrayList<Product>();
         this.categories = new ArrayList<Category>();
     }
 
     public Stock(String description) {
-        this.id = "ESTQ" + RandomID.randomWithoutLetters(4);
+        this.id = "STOCK" + RandomID.randomWithoutLetters(4);
         this.description = description;
         this.products = new ArrayList<Product>();
         this.categories = new ArrayList<Category>();
@@ -64,7 +63,7 @@ public class Stock {
         Category category = this.findCategory(categoryCode);
 
         if(category == null) {
-            throw new Exception("Categoria não encontrada");
+            throw new Exception("CATEGORY NOT FOUND!");
         }
         NoPerishable newProduct = new NoPerishable(name, amount, category);
 
@@ -77,7 +76,7 @@ public class Stock {
         Category category = this.findCategory(categoryCode);
         
         if(category == null) {
-            throw new Exception("Categoria não encontrada");
+            throw new Exception("CATEGORY NOT FOUND!");
         }
 
         try {
@@ -90,31 +89,28 @@ public class Stock {
         } catch(Exception exception) {
             throw new Exception(exception.getMessage());
         }
-        
-
     }
 
     private String buildCategory(String title, String prefix, String description) {
-        Category category = new Category(title, prefix, description);
+        Category category = new Category(title, prefix, description.toUpperCase());
         this.categories.add(category);
 
         return category.getCode();
     }
 
     public String createCategory(String title, String prefix) {
-        return buildCategory(title, prefix, "");
-        
+        return buildCategory(title.toUpperCase(), prefix, "");
     }
 
     public String createCategory(String title, String prefix, String description) {
-        return buildCategory(title, prefix, description);
+        return buildCategory(title.toUpperCase(), prefix, description);
     }
 
     public void replaceProduct(String code, int amount) throws Exception {
         Product product = findProduct(code);
 
         if(product == null) {
-            throw new Exception("Não existe um produto cadastrado com esse código.");
+            throw new Exception("THERE IS NO PRODUCT REGISTERED WITH THIS CODE!");
         }
 
         NoPerishable newProduct = new NoPerishable(product.getName(), amount, product.getCategory(), product.getCode());
@@ -125,7 +121,7 @@ public class Stock {
         Product product = findProduct(code);
 
         if(product == null) {
-            throw new Exception("Não existe um produto cadastrado com esse código.");
+            throw new Exception("THERE IS NO PRODUCT REGISTERED WITH THIS CODE!");
         }
         try {
             Perishable newProduct = new Perishable(product.getName(), amount, product.getCategory(), DateFormatter.formatter.parse(validUntil), product.getCode());
@@ -141,13 +137,13 @@ public class Stock {
         Product product = findProduct(code);
 
         if(product == null) {
-            throw new Exception("Nenhum produto com esse código foi encontrado");
+            throw new Exception("THERE IS NO PRODUCT REGISTERED WITH THIS CODE!");
         }
 
         if(product.getAmount() >= amount) {
             product.setAmount(product.getAmount() - amount);
         } else {
-            throw new Exception("Quantidade insulficiente no estoque");
+            throw new Exception("INSUFFICIENT QUANTITY IN STOCK!");
         }
 
         if((product.getAmount() == 0)) {
@@ -156,17 +152,26 @@ public class Stock {
     }
 
     public void stockResume() {
-        System.out.println("Relatório =======");
+        System.out.println("\nREPORT =======");
         for(int i = 0; i<this.products.size(); i++) {
-            System.out.println(this.products.get(i).getDetails());
+            if (i == this.products.size() - 1) {
+                System.out.println(this.products.get(i).getDetails());
+            } else {
+                System.out.printf("%s\n-------------------\n", this.products.get(i).getDetails());
+            }
         }
+        System.out.println("===================\n");
     }
 
     public void categoriesResume() {
-        System.out.println("Categorias =======");
-        for(int i = 0; i<this.categories.size(); i++) {
-            System.out.println(this.categories.get(i).toString());
+        System.out.println("\nCATEGORIES ========");
+        for(int i = 0; i < this.categories.size(); i++) {
+            if (i == this.categories.size() - 1) {
+                System.out.println(this.categories.get(i).toString());
+            } else {
+                System.out.printf("%s\n-------------------\n", this.categories.get(i).toString());
+            }
         }
+        System.out.println("===================\n");
     }
-     
 }

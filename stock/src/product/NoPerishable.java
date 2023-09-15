@@ -9,7 +9,5 @@ public class NoPerishable extends Product{
     public NoPerishable(String name, int amount, Category category, String code) {
         super(name, amount, category);
         this.setCode(code);
-    }
-
-    
+    } 
 }

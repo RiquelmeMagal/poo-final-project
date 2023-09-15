@@ -10,6 +10,7 @@ public class Perishable extends Product {
         super(name, amount, category);
         this.validUntil = validUntil;
     }
+    
     public Perishable(String name, int amount, Category category, Date validUntil, String code) {
         super(name, amount, category);
         this.validUntil = validUntil;
@@ -18,7 +19,6 @@ public class Perishable extends Product {
 
     @Override
     public String getDetails() {
-        return String.format("%s | %d unidades | Válido até %s", this.toString(), this.amount, DateFormatter.formatter.format(validUntil));
+        return String.format("%s | %d unidades\nVálido até %s", this.toString(), this.amount, DateFormatter.formatter.format(validUntil));
     }
-
 }

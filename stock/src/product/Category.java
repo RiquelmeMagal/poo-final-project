@@ -12,9 +12,7 @@ public class Category {
         this.title = title;
         this.prefix = prefix;
         this.description = description;
-    
     }
-
 
     public String getCode() {
         return code;
@@ -46,6 +44,6 @@ public class Category {
 
     @Override
     public String toString() {
-        return this.description.length() > 0 ? String.format("[%s]%s:%s", this.code, this.title, this.description) : String.format("[%s]%s",this.code, this.title);
+        return this.description.length() > 1 ? String.format("[%s] | %s\n*%s", this.code, this.title, this.description) : String.format("[%s] | %s", this.code, this.title);
     }
 }

@@ -19,7 +19,6 @@ public class RandomID {
         return idBuilder.toString();
     }
 
-
     public static String random() {
         return random(DEFAULTLENGTH);
     }
@@ -39,6 +38,4 @@ public class RandomID {
     public static String randomWithoutLetters() {
         return randomWithoutLetters(DEFAULTLENGTH);
     }
-
-
 }
