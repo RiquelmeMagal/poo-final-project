@@ -49,12 +49,9 @@ public class Stock {
         return null;
     }
 
-    private Product findProduct(String code) {
-        for(int i = 0; i<this.categories.size(); i++) {
-            Product currentProduct = this.products.get(i);
-            if(currentProduct.getCode().equals(code)) {
-                return currentProduct;
-            }
+    private Product findProduct(int value) {
+        if (value > -1 && value < this.products.size()) {
+            return this.products.get(value);
         }
         return null;
     }
@@ -106,37 +103,47 @@ public class Stock {
         return buildCategory(title.toUpperCase(), prefix, description);
     }
 
-    public void replaceProduct(String code, int amount) throws Exception {
-        Product product = findProduct(code);
+    public void replaceProduct(int value, int amount) throws Exception {
+        Product product = findProduct(value);
 
-        if(product == null) {
-            throw new Exception("THERE IS NO PRODUCT REGISTERED WITH THIS CODE!");
+        try {
+            if(product == null) {
+                throw new Exception("THERE IS NO PRODUCT REGISTERED WITH THIS CODE!");
+            }
+            
+            product.replenishQuantity(amount);
+        } catch(Exception exception) {
+            throw new Exception(exception.getMessage());
         }
-
-        NoPerishable newProduct = new NoPerishable(product.getName(), amount, product.getCategory(), product.getCode());
-        this.products.add(newProduct);
     }
 
-    public void replaceProduct(String code, int amount, String validUntil) throws Exception {
-        Product product = findProduct(code);
+    public void replaceProduct(int value, int amount, String validUntil) throws Exception {
+        Product product = findProduct(value);
 
         if(product == null) {
             throw new Exception("THERE IS NO PRODUCT REGISTERED WITH THIS CODE!");
         }
+        
         try {
-            Perishable newProduct = new Perishable(product.getName(), amount, product.getCategory(), DateFormatter.formatter.parse(validUntil), product.getCode());
-      
-            this.products.add(newProduct);
+            if (validUntil.equals(DateFormatter.formatter.format(((Perishable) product).getValidUntil()))) {
+                product.replenishQuantity(amount);
+            } else {
+                Perishable newProduct = new Perishable(product.getName(), amount, product.getCategory(), DateFormatter.formatter.parse(validUntil), product.getCode());
+            
+                this.products.add(newProduct);
+            }
 
         } catch(Exception exception) {
             throw new Exception(exception.getMessage());
         }
     }
 
-    public void sellProduct(String code, int amount) throws Exception {
-        Product product = findProduct(code);
+    public void sellProduct(int value, int amount) throws Exception {
+        Product product;
 
-        if(product == null) {
+        if (value > -1 && value < this.products.size()) {
+            product = this.products.get(value);
+        } else {
             throw new Exception("THERE IS NO PRODUCT REGISTERED WITH THIS CODE!");
         }
 
@@ -151,16 +158,19 @@ public class Stock {
         }
     }
 
-    public void stockResume() {
-        System.out.println("\nREPORT =======");
-        for(int i = 0; i<this.products.size(); i++) {
-            if (i == this.products.size() - 1) {
-                System.out.println(this.products.get(i).getDetails());
-            } else {
-                System.out.printf("%s\n-------------------\n", this.products.get(i).getDetails());
+    public int stockResume() {
+        if (this.products.size() > 0) {
+            for(int i = 0; i < this.products.size(); i++) {
+                if (i == this.products.size() - 1) {
+                    System.out.printf("%d - %s", i+1, this.products.get(i).getDetails());
+                } else {
+                    System.out.printf("%d - %s\n-------------------\n", i+1, this.products.get(i).getDetails());
+                }
             }
+            System.out.println("\n===================");
         }
-        System.out.println("===================\n");
+
+        return this.products.size();
     }
 
     public void categoriesResume() {

@@ -53,6 +53,10 @@ public abstract class Product {
         this.amount = amount;
     }
 
+    public void replenishQuantity(int amount) {
+        this.amount += amount;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] | %s", this.code, this.name);

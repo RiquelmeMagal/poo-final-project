@@ -17,8 +17,12 @@ public class Perishable extends Product {
         this.setCode(code);
     }
 
+    public Date getValidUntil() {
+        return this.validUntil;
+    }
+
     @Override
     public String getDetails() {
-        return String.format("%s | %d unidades\nVálido até %s", this.toString(), this.amount, DateFormatter.formatter.format(validUntil));
+        return String.format("%s | %d UNITS\nVALID UNTIL %s", this.toString(), this.amount, DateFormatter.formatter.format(validUntil));
     }
 }
