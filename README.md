@@ -22,7 +22,7 @@ Projeto final da disciplina de POO do semestre 2023.1
    java -jar poo-final-project.jar
    ```
 ### Replit
-Escrever aqui...
+* [Teste online](https://replit.com/@AlexSandro35/poo-final-project#src/App.java)
 
 ### Docker
 Escrever aqui...
