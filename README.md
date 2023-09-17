@@ -28,9 +28,9 @@ Escrever aqui...
 Escrever aqui...
 
 ## Desenvolvedores
-- [Jaiane Oliveira]()
-- [Alex Sandro]()
-- [Riquelme Magalhães]()
+- [Jaiane Oliveira](https://github.com/JaianeOliveira)
+- [Alex Sandro](https://github.com/alexsandro49)
+- [Riquelme Magalhães](https://github.com/RiquelmeMagal)
   
 ## Licença
 - [MIT](https://github.com/JaianeOliveira/poo-final-project/blob/main/LICENSE)
