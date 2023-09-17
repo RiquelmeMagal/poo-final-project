@@ -56,28 +56,29 @@ public class Stock {
         return null;
     }
 
-    public String registerProduct(String name, int amount, String categoryCode) throws Exception {
-        Category category = this.findCategory(categoryCode);
+    public String registerProduct(String name, int amount, int categoryCode) throws Exception {
+        Category category = this.categories.get(categoryCode);
 
         if(category == null) {
             throw new Exception("CATEGORY NOT FOUND!");
         }
-        NoPerishable newProduct = new NoPerishable(name, amount, category);
+        
+        NoPerishable newProduct = new NoPerishable(name.toUpperCase(), amount, category);
 
         this.products.add(newProduct);
 
         return newProduct.getCode();
     }
 
-    public String registerProduct(String name, int amount, String categoryCode, String validUntil) throws Exception {
-        Category category = this.findCategory(categoryCode);
+    public String registerProduct(String name, int amount, int categoryCode, String validUntil) throws Exception {
+        Category category = this.categories.get(categoryCode);
         
         if(category == null) {
             throw new Exception("CATEGORY NOT FOUND!");
         }
 
         try {
-            Perishable newProduct = new Perishable(name, amount, category, DateFormatter.formatter.parse(validUntil));
+            Perishable newProduct = new Perishable(name.toUpperCase(), amount, category, DateFormatter.formatter.parse(validUntil));
       
             this.products.add(newProduct);
 
@@ -88,19 +89,47 @@ public class Stock {
         }
     }
 
-    private String buildCategory(String title, String prefix, String description) {
+    private void buildCategory(String title, String prefix, String description) {
         Category category = new Category(title, prefix, description.toUpperCase());
         this.categories.add(category);
-
-        return category.getCode();
     }
 
-    public String createCategory(String title, String prefix) {
-        return buildCategory(title.toUpperCase(), prefix, "");
+    public void createCategory(String title) {
+        if (title.length() == 3) {
+            buildCategory(title.toUpperCase(), title.toUpperCase(), "");
+        } else if(title.length() > 3) {
+            for (int i = 0; i < 3 - title.length(); i++) {
+                title.replaceFirst("[AEIOU]", "");
+            }
+
+            buildCategory(title.toUpperCase(), title.toUpperCase().substring(0, 3), "");
+        } else {
+            String newTitle = title;
+            for (int i = 0; i < 3 - title.length(); i++) {
+                newTitle += "0";
+            }
+            
+            buildCategory(title.toUpperCase(), newTitle.toUpperCase(), "");
+        }
     }
 
-    public String createCategory(String title, String prefix, String description) {
-        return buildCategory(title.toUpperCase(), prefix, description);
+    public void createCategory(String title, String description) {
+        if (title.length() == 3) {
+            buildCategory(title.toUpperCase(), title.toUpperCase(), description);
+        } else if(title.length() > 3) {
+            for (int i = 0; i < 3 - title.length(); i++) {
+                title.replaceFirst("[AEIOU]", "");
+            }
+
+            buildCategory(title.toUpperCase(), title.toUpperCase().substring(0, 3), description);
+        } else {
+            String newTitle = title;
+            for (int i = 0; i < 3 - title.length(); i++) {
+                newTitle += "0";
+            }
+            
+            buildCategory(title.toUpperCase(), newTitle.toUpperCase(), description);
+        }
     }
 
     public void replaceProduct(int value, int amount) throws Exception {
@@ -173,15 +202,20 @@ public class Stock {
         return this.products.size();
     }
 
-    public void categoriesResume() {
-        System.out.println("\nCATEGORIES ========");
+    public void categoriesResume(boolean numbers) {
         for(int i = 0; i < this.categories.size(); i++) {
-            if (i == this.categories.size() - 1) {
-                System.out.println(this.categories.get(i).toString());
+            String selectionNumber;
+            if (numbers) {
+                selectionNumber = Integer.toString(i+1) +" - ";
             } else {
-                System.out.printf("%s\n-------------------\n", this.categories.get(i).toString());
+                selectionNumber = "";
+            }
+
+            if (i == this.categories.size() - 1) {
+                System.out.printf("%s%s", selectionNumber, this.categories.get(i).toString());
+            } else {
+                System.out.printf("%s%s\n-------------------\n", selectionNumber, this.categories.get(i).toString());
             }
         }
-        System.out.println("===================\n");
     }
 }
