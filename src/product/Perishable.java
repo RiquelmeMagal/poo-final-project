@@ -21,6 +21,10 @@ public class Perishable extends Product {
         return this.validUntil;
     }
 
+    public void setValidUntil(Date validUntil) {
+        this.validUntil = validUntil;
+    }
+
     @Override
     public String getDetails() {
         return String.format("%s | %d UNITS\nVALID UNTIL %s", this.toString(), this.amount, DateFormatter.formatter.format(validUntil));

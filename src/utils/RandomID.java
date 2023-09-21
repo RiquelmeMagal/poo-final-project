@@ -2,6 +2,7 @@ package utils;
 import java.security.SecureRandom;
 import java.util.Random;
 
+
 public class RandomID {
     private static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final int DEFAULTLENGTH = 9;

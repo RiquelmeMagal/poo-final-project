@@ -1,6 +1,7 @@
 package product;
 import utils.RandomID;
 
+
 public abstract class Product {
     protected String id;
     protected String code;
@@ -19,17 +20,13 @@ public abstract class Product {
     public String getId() {
         return id;
     }
-
-    public String getName() {
-        return name;
-    }
-
+    
     public String getCode() {
         return code;
     }
 
-    protected void setCode(String code) {
-        this.code = code;
+    public String getName() {
+        return name;
     }
 
     public int getAmount() {
@@ -40,17 +37,25 @@ public abstract class Product {
         return category;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public void setCategory(Category category) {
         this.category = category;
         this.code = category.getPrefix() + RandomID.randomWithoutLetters(4);
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 
     public void replenishQuantity(int amount) {
