@@ -1,4 +1,4 @@
-# Gerênciamento de estoque
+# Gerenciamento de estoque
 Projeto final da disciplina de POO do semestre 2023.1
 
 ## Como rodar na sua máquina
@@ -21,11 +21,19 @@ Projeto final da disciplina de POO do semestre 2023.1
    ```
    java -jar poo-final-project.jar
    ```
-### Replit
-* [Teste online](https://replit.com/@AlexSandro35/poo-final-project#src/App.java)
 
 ### Docker
-Escrever aqui...
+1. Baixe o arquivo com o comando
+   ```
+   docker pull alexsandro49/final-project-poo
+   ```
+2. Use esse comando para executar
+   ```
+   docker run -it alexsandro49/final-project-poo
+   ```
+
+   ### Replit
+* [Teste online](https://replit.com/@AlexSandro35/poo-final-project#src/App.java)
 
 ## Desenvolvedores
 - [Jaiane Oliveira](https://github.com/JaianeOliveira)
